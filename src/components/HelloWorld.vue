@@ -5,7 +5,7 @@
 </template>
 
 <style scoped>
-  .read-the-docs {
-    color: #888;
+  h1 {
+    padding: 5px;
   }
 </style>
