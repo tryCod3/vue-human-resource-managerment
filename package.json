@@ -1,38 +1,38 @@
 {
-    "name": "human-resource-managerment",
-    "private": true,
-    "version": "0.0.0",
-    "type": "module",
-    "scripts": {
-        "dev": "vite",
-        "build": "vite build",
-        "preview": "vite preview",
-        "style": "yarn prettier . --write",
-        "lint": "yarn eslint --ext .ts,vue --ignore-path .gitignore .",
-        "postinstall": "husky install"
-    },
-    "dependencies": {
-        "vue": "^3.2.37"
-    },
-    "devDependencies": {
-        "@commitlint/cli": "^17.1.2",
-        "@commitlint/config-conventional": "^17.1.0",
-        "@vitejs/plugin-vue": "^3.1.0",
-        "@vue/cli-plugin-babel": "^5.0.8",
-        "@vue/eslint-config-prettier": "^7.0.0",
-        "eslint": "^8.23.0",
-        "eslint-plugin-prettier": "^4.2.1",
-        "eslint-plugin-vue": "^9.4.0",
-        "husky": "^8.0.1",
-        "lint-staged": "^13.0.3",
-        "prettier": "^2.7.1",
-        "vite": "^3.1.0"
-    },
-    "lint-staged": {
-        "*.{js,vue}": [
-            "yarn style",
-            "yarn lint --fix",
-            "git add ."
-        ]
-    }
+  "name": "human-resource-managerment",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "style": "yarn prettier . --write",
+    "lint": "yarn eslint --ext .ts,vue --ignore-path .gitignore .",
+    "postinstall": "husky install"
+  },
+  "dependencies": {
+    "vue": "^3.2.37"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.1.2",
+    "@commitlint/config-conventional": "^17.1.0",
+    "@vitejs/plugin-vue": "^3.1.0",
+    "@vue/cli-plugin-babel": "^5.0.8",
+    "@vue/eslint-config-prettier": "^7.0.0",
+    "eslint": "^8.23.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-vue": "^9.4.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1",
+    "vite": "^3.1.0"
+  },
+  "lint-staged": {
+    "*.{js,vue}": [
+      "yarn style",
+      "yarn lint --fix",
+      "git add ."
+    ]
+  }
 }

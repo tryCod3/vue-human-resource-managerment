@@ -6,55 +6,51 @@ module.exports = {
     browser: true,
   },
 
-  extends: [
-    "plugin:vue/vue3-recommended",
-    "eslint:recommended",
-    "eslint-config-prettier",
-  ],
+  extends: ['plugin:vue/vue3-recommended', 'eslint:recommended', 'eslint-config-prettier'],
 
-  plugins: ["eslint-plugin-prettier"],
+  plugins: ['eslint-plugin-prettier'],
 
   parserOptions: {
     ecmaVersion: 2020,
   },
 
   rules: {
-    "no-console": 2,
-    "no-unused-vars": [
+    'no-console': 2,
+    'no-unused-vars': [
       2,
       {
-        vars: "all",
+        vars: 'all',
       },
     ],
-    eqeqeq: [2, "always"],
-    "semi-style": [2, "last"],
-    "comma-style": [2, "last"],
-    "nonblock-statement-body-position": [2, "below"],
-    "multiline-ternary": [2, "always-multiline"],
-    "no-nested-ternary": 2,
-    "line-comment-position": [
+    eqeqeq: [2, 'always'],
+    'semi-style': [2, 'last'],
+    'comma-style': [2, 'last'],
+    'nonblock-statement-body-position': [2, 'below'],
+    'multiline-ternary': [2, 'always-multiline'],
+    'no-nested-ternary': 2,
+    'line-comment-position': [
       2,
       {
-        position: "above",
+        position: 'above',
       },
     ],
-    "object-shorthand": [
+    'object-shorthand': [
       2,
-      "always",
+      'always',
       {
         avoidExplicitReturnArrows: true,
       },
     ],
-    curly: ["error", "multi", "consistent"],
-    "space-before-function-paren": [
+    curly: ['error', 'multi', 'consistent'],
+    'space-before-function-paren': [
       2,
       {
-        anonymous: "always",
-        named: "always",
-        asyncArrow: "always",
+        anonymous: 'always',
+        named: 'always',
+        asyncArrow: 'always',
       },
     ],
-    "vue/require-default-prop": 0,
+    'vue/require-default-prop': 0,
   },
 };
 
