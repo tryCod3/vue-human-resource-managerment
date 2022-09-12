@@ -3,6 +3,7 @@ import ElementPlus from 'element-plus';
 import { VueSvgIconPlugin } from '@yzfe/vue3-svgicon';
 import App from './App.vue';
 import router from '@/router';
+import '@/router/permission';
 
 import '@yzfe/svgicon/lib/svgicon.css';
 import 'element-plus/dist/index.css';
