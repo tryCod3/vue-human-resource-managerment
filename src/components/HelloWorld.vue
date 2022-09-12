@@ -1,4 +1,6 @@
-<script setup></script>
+<script lang="ts">
+  export default {};
+</script>
 
 <template>
   <h1>Hello i'm config app</h1>

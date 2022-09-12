@@ -4,9 +4,15 @@ module.exports = {
   env: {
     node: true,
     browser: true,
+    es2020: true,
   },
 
-  extends: ['plugin:vue/vue3-recommended', 'eslint:recommended', 'eslint-config-prettier'],
+  extends: [
+    'plugin:vue/vue3-recommended',
+    'eslint:recommended',
+    'eslint-config-prettier',
+    '@vue/typescript/recommended',
+  ],
 
   plugins: ['eslint-plugin-prettier'],
 
@@ -48,6 +54,15 @@ module.exports = {
         anonymous: 'always',
         named: 'always',
         asyncArrow: 'always',
+      },
+    ],
+    '@typescript-eslint/ban-types': [
+      2,
+      {
+        extendDefaults: true,
+        types: {
+          '{}': false,
+        },
       },
     ],
     'vue/require-default-prop': 0,
