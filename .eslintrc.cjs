@@ -51,6 +51,7 @@ module.exports = {
       },
     ],
     'vue/require-default-prop': 0,
+    'vue/multi-word-component-names': 0,
   },
 };
 
