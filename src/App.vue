@@ -1,19 +1,18 @@
 <script lang="ts">
-  export default {};
+  import layout from '../src/components/layout/index.vue';
+
+  export default {
+    components: {
+      layout,
+    },
+  };
 </script>
 
 <template>
-  <div>Home</div>
+  <layout />
   <router-view />
 </template>
 
 <style scoped lang="scss">
   @use '@/styles' as *;
-
-  div {
-    background-color: $primary-color;
-  }
-  #nav {
-    background-color: white;
-  }
 </style>
