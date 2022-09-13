@@ -1,5 +1,17 @@
 <script lang="ts">
-  export default {};
+  import { defineComponent } from 'vue';
+  export default defineComponent({
+    name: 'App',
+    data () {
+      return {
+        authenticated: false,
+      };
+    },
+    mounted () {
+      if (!this.authenticated) 
+this.$router.replace({ name: 'Login' });
+    },
+  });
 </script>
 
 <template>
@@ -9,11 +21,4 @@
 
 <style scoped lang="scss">
   @use '@/styles' as *;
-
-  div {
-    background-color: $primary-color;
-  }
-  #nav {
-    background-color: white;
-  }
 </style>
