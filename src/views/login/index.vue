@@ -1,5 +1,9 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
+  import store from '@/store';
+  import CONSTANT_STORE from '@/constants/store';
+  import { ACCOUNT_ROLE } from '@/constants/role';
+
   export default defineComponent({
     name: 'Login',
     data () {
@@ -7,6 +11,7 @@
         input: {
           username: 'minhtruong',
           password: '12345678',
+          roles: [ACCOUNT_ROLE.EMPLOYEE],
         },
         mockAccount: {
           username: 'minhtruong',
@@ -18,19 +23,16 @@
       login () {
         if (this.input.username !== '' && this.input.password !== '')
           if (this.input.username === this.mockAccount.username && this.input.password === this.mockAccount.password) {
-            localStorage.setItem(
-              'author',
-              JSON.stringify({
-                username: this.input.username,
-                password: this.input.password,
-              })
-            );
-            this.$router.replace({ name: 'home' });
+            // save account
+            store.dispatch(CONSTANT_STORE.USER.PROFILE.SET_WITH_NAMESPACED, this.input);
+            // change isLogin = true
+            store.dispatch(CONSTANT_STORE.USER.LOGIN.SET_WITH_NAMESPACED, true);
+            // navigate from dashboard view
+            this.$router.push('/');
           } else {
             alert('The username  or password is not exits');
           }
-        else 
-alert('You can not empty UserName Or Password');
+        else alert('You can not empty UserName Or Password');
       },
     },
   });

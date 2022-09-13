@@ -3,27 +3,6 @@ import { ACCOUNT_ROLE } from './../constants/role';
 
 const routers: RouteRecordRaw[] = [
   {
-    path: '/',
-    component: null,
-    redirect: '/dashboard',
-    meta: {
-      roles: [ACCOUNT_ROLE.ADMIN, ACCOUNT_ROLE.EMPLOYEE],
-    },
-    children: [
-      {
-        path: 'dashboard',
-        name: 'Dashboard',
-        component: null,
-        meta: {
-          title: 'dashboard',
-          icon: '',
-          roles: [ACCOUNT_ROLE.ADMIN, ACCOUNT_ROLE.EMPLOYEE],
-        },
-        children: [],
-      },
-    ],
-  },
-  {
     path: '/company',
     component: null,
     redirect: '/company/list',

@@ -31,7 +31,6 @@ module.exports = {
     eqeqeq: [2, 'always'],
     'semi-style': [2, 'last'],
     'comma-style': [2, 'last'],
-    'nonblock-statement-body-position': [2, 'below'],
     'multiline-ternary': [2, 'always-multiline'],
     'no-nested-ternary': 2,
     'line-comment-position': [
