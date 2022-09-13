@@ -1,9 +1,39 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import HelloWorld from '@/components/HelloWorld.vue';
+import Login from '@/views/Login/index.vue';
+import Home from '@/views/Home/index.vue';
 
-const routes = [{ path: '/', component: HelloWorld }];
+const routes = [
+  //   {
+  //     path: '/',
+  //     redirect: {
+  //       name: "login"
+  //     }
+  // },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login,
+  },
+  {
+    path: '/',
+    name: 'home',
+    component: Home,
+  },
+];
 
-export default createRouter({
+const router = createRouter({
   history: createWebHistory('/'),
   routes,
 });
+
+router.beforeEach(to => {
+  const t = localStorage.getItem('author');
+  // if(t) t = JSON.parse(t)
+  // console.log(t)
+  if (t && to.fullPath === '/login') 
+return { name: 'home' };
+  else 
+return true;
+});
+
+export default router;
