@@ -1,4 +1,6 @@
-const routers = [
+import { RouteRecordRaw } from 'vue-router';
+
+const routers: RouteRecordRaw[] = [
   {
     path: '/404',
     name: 'Error',

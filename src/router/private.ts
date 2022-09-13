@@ -1,49 +1,51 @@
+import { RouteRecordRaw } from 'vue-router';
 import { ACCOUNT_ROLE } from './../constants/role';
 
-const routers = [
+const routers: RouteRecordRaw[] = [
   {
     path: '/',
-    component: '',
+    component: null,
     redirect: '/dashboard',
     meta: {
-      requiresAuth: true,
+      roles: [ACCOUNT_ROLE.ADMIN, ACCOUNT_ROLE.EMPLOYEE],
     },
     children: [
       {
         path: 'dashboard',
         name: 'Dashboard',
-        component: '',
+        component: null,
         meta: {
           title: 'dashboard',
           icon: '',
           roles: [ACCOUNT_ROLE.ADMIN, ACCOUNT_ROLE.EMPLOYEE],
         },
+        children: [],
       },
     ],
   },
   {
     path: '/company',
-    component: '',
+    component: null,
     redirect: '/company/list',
     meta: {
       roles: [ACCOUNT_ROLE.ADMIN],
-      requiresAuth: true,
     },
     children: [
       {
         path: 'create',
         name: 'Company-Create',
-        component: '',
+        component: null,
         meta: {
           title: 'create',
           icon: '',
           roles: [ACCOUNT_ROLE.ADMIN],
         },
+        children: [],
       },
       {
         path: 'list',
         name: 'Company-List',
-        component: '',
+        component: null,
         meta: {
           title: 'list',
           icon: '',
@@ -53,19 +55,22 @@ const routers = [
           {
             path: 'edit/:id',
             name: 'Company-List-Edit',
-            component: '',
+            component: null,
             meta: {
               hidden: true,
+              roles: [ACCOUNT_ROLE.ADMIN],
             },
+            children: [],
           },
           {
             path: 'profile/:id',
             name: 'Company-List-Profile',
-            component: '',
+            component: null,
             meta: {
               hidden: true,
-              requiresAuth: true,
+              roles: [ACCOUNT_ROLE.ADMIN],
             },
+            children: [],
           },
         ],
       },
@@ -73,37 +78,38 @@ const routers = [
   },
   {
     path: '/employee',
-    component: '',
+    component: null,
     redirect: '/employee/index',
     meta: {
       roles: [ACCOUNT_ROLE.ADMIN, ACCOUNT_ROLE.EMPLOYEE],
-      requiresAuth: true,
     },
     children: [
       {
         path: 'index',
         name: 'Employee-MySeft',
-        component: '',
+        component: null,
         meta: {
           title: 'employee',
           icon: '',
           roles: [ACCOUNT_ROLE.ADMIN, ACCOUNT_ROLE.EMPLOYEE],
         },
+        children: [],
       },
       {
         path: 'create',
         name: 'Employee-Create',
-        component: '',
+        component: null,
         meta: {
           title: 'create',
           icon: '',
           roles: [ACCOUNT_ROLE.ADMIN],
         },
+        children: [],
       },
       {
         path: 'list',
         name: 'Employee-List',
-        component: '',
+        component: null,
         meta: {
           title: 'list',
           icon: '',
@@ -113,18 +119,22 @@ const routers = [
           {
             path: 'edit/:id',
             name: 'Employee-List-Edit',
-            component: '',
+            component: null,
             meta: {
               hidden: true,
+              roles: [ACCOUNT_ROLE.ADMIN],
             },
+            children: [],
           },
           {
             path: 'profile/:id',
             name: 'Employee-List-Profile',
-            component: '',
+            component: null,
             meta: {
               hidden: true,
+              roles: [ACCOUNT_ROLE.ADMIN],
             },
+            children: [],
           },
         ],
       },
@@ -132,26 +142,27 @@ const routers = [
   },
   {
     path: '/department',
-    component: '',
+    component: null,
     redirect: '/department/list',
     meta: {
-      requiresAuth: true,
+      roles: [ACCOUNT_ROLE.ADMIN],
     },
     children: [
       {
         path: 'create',
         name: 'Department-Create',
-        component: '',
+        component: null,
         meta: {
           title: 'create',
           icon: '',
           roles: [ACCOUNT_ROLE.ADMIN],
         },
+        children: [],
       },
       {
         path: 'list',
         name: 'Department-List',
-        component: '',
+        component: null,
         meta: {
           title: 'list',
           icon: '',
@@ -161,18 +172,22 @@ const routers = [
           {
             path: 'edit/:id',
             name: 'Department-List-Edit',
-            component: '',
+            component: null,
             meta: {
               hidden: true,
+              roles: [ACCOUNT_ROLE.ADMIN],
             },
+            children: [],
           },
           {
             path: 'profile/:id',
             name: 'Department-List-Profile',
-            component: '',
+            component: null,
             meta: {
               hidden: true,
+              roles: [ACCOUNT_ROLE.ADMIN],
             },
+            children: [],
           },
         ],
       },
@@ -180,21 +195,22 @@ const routers = [
   },
   {
     path: '/permission',
-    component: '',
+    component: null,
     redirect: '/permission/index',
     meta: {
-      requiresAuth: true,
+      roles: [ACCOUNT_ROLE.ADMIN],
     },
     children: [
       {
         path: 'index',
         name: 'Permission',
-        component: '',
+        component: null,
         meta: {
           title: 'permission',
           icon: '',
           roles: [ACCOUNT_ROLE.ADMIN],
         },
+        children: [],
       },
     ],
   },
