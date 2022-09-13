@@ -74,7 +74,7 @@ const routers = [
   {
     path: '/employee',
     component: '',
-    redirect: '/employee/list',
+    redirect: '/employee/index',
     meta: {
       roles: [ACCOUNT_ROLE.ADMIN, ACCOUNT_ROLE.EMPLOYEE],
       requiresAuth: true,
