@@ -3,9 +3,12 @@ import mutations from './mutations';
 import CONSTANT_STORE from '@/constants/store';
 
 export interface IProfileState {
-  name: string;
-  token: string;
-  roles: string[];
+  accessToken: string;
+  user: {
+    email: string;
+    roles: string[];
+    id: number;
+  };
 }
 
 export interface IUserState {
@@ -15,9 +18,12 @@ export interface IUserState {
 
 const accountInLocal = localStorage.getItem('author');
 let account: IProfileState = {
-  name: '',
-  token: '',
-  roles: [],
+  accessToken: '',
+  user: {
+    email: '',
+    roles: [],
+    id: -1,
+  },
 };
 
 if (accountInLocal) account = JSON.parse(accountInLocal);
