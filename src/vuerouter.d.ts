@@ -3,6 +3,8 @@
 // to ensure it is treated as a module
 export {};
 
+import { ElementNode } from '@vue/compiler-dom';
+import { Component } from 'vue';
 import 'vue-router';
 
 declare module 'vue-router' {
@@ -12,5 +14,6 @@ declare module 'vue-router' {
     title?: string;
     hidden?: boolean;
     icon?: string;
+    isRoot?: boolean;
   }
 }

@@ -6,6 +6,7 @@ import '@/router/permission';
 
 import ElementPlus from 'element-plus';
 import { VueSvgIconPlugin } from '@yzfe/vue3-svgicon';
+import * as ElementPlusIconsVue from '@element-plus/icons-vue';
 
 import '@yzfe/svgicon/lib/svgicon.css';
 import 'element-plus/dist/index.css';
@@ -23,4 +24,7 @@ app.use(VueSvgIconPlugin, {
 
 app.use(router);
 app.use(store);
+
+for (const [name, comp] of Object.entries(ElementPlusIconsVue)) app.component(name, comp);
+
 app.mount('#app');
