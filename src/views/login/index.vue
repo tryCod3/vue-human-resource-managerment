@@ -29,9 +29,13 @@
             return data.json();
           })
           .then(data => {
-            store.dispatch(CONSTANT_STORE.USER.PROFILE.SET_WITH_NAMESPACED, data);
-            store.dispatch(CONSTANT_STORE.USER.LOGIN.SET_WITH_NAMESPACED, true);
-            this.$router.push('/');
+            if (data.user) {
+              store.dispatch(CONSTANT_STORE.USER.PROFILE.SET_WITH_NAMESPACED, data);
+              store.dispatch(CONSTANT_STORE.USER.LOGIN.SET_WITH_NAMESPACED, true);
+              this.$router.push('/');
+            } else {
+              alert('Error:' + data);
+            }
           })
           .catch(error => {
             alert('Error:' + error);
