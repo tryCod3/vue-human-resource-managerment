@@ -1,38 +1,41 @@
-<script lang="ts">
+<script lang="ts" set>
   import { defineComponent } from 'vue';
   import store from '@/store';
   import CONSTANT_STORE from '@/constants/store';
-  import { ACCOUNT_ROLE } from '@/constants/role';
 
   export default defineComponent({
     name: 'Login',
     data () {
       return {
         input: {
-          username: 'minhtruong',
-          password: '12345678',
-          roles: [ACCOUNT_ROLE.EMPLOYEE],
-        },
-        mockAccount: {
-          username: 'minhtruong',
-          password: '12345678',
+          email: '',
+          password: '',
         },
       };
     },
     methods: {
       login () {
-        if (this.input.username !== '' && this.input.password !== '')
-          if (this.input.username === this.mockAccount.username && this.input.password === this.mockAccount.password) {
-            // save account
-            store.dispatch(CONSTANT_STORE.USER.PROFILE.SET_WITH_NAMESPACED, this.input);
-            // change isLogin = true
+        const data = this.input;
+
+        fetch('http://localhost:3000/login', {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        })
+          .then(data => {
+            return data.json();
+          })
+          .then(data => {
+            store.dispatch(CONSTANT_STORE.USER.PROFILE.SET_WITH_NAMESPACED, data);
             store.dispatch(CONSTANT_STORE.USER.LOGIN.SET_WITH_NAMESPACED, true);
-            // navigate from dashboard view
             this.$router.push('/');
-          } else {
-            alert('The username  or password is not exits');
-          }
-        else alert('You can not empty UserName Or Password');
+          })
+          .catch(error => {
+            alert('Error:' + error);
+          });
       },
     },
   });
@@ -43,11 +46,11 @@
     <h2>Login</h2>
     <form>
       <div class="user-box">
-        <input v-model="input.username" type="text" name="username" required="true" />
-        <label>Username</label>
+        <input v-model="input.email" type="text" required="true" />
+        <label>Email</label>
       </div>
       <div class="user-box">
-        <input v-model="input.password" type="password" name="password" required="true" />
+        <input v-model="input.password" type="password" required="true" />
         <label>Password</label>
       </div>
       <button type="button" @click="login()">Login</button>

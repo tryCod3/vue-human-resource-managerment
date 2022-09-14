@@ -18,7 +18,7 @@ router.beforeEach(async (to: RouteLocation) => {
       // get account
       const account: IProfileState = store.getters[CONSTANT_STORE.USER.PROFILE.GET_WITH_NAMESPACED];
       // get dynamic navbar
-      store.dispatch(CONSTANT_STORE.APP.NAVBAR_DYNAMIC.SET_WITH_NAMESPACED, account.roles);
+      store.dispatch(CONSTANT_STORE.APP.NAVBAR_DYNAMIC.SET_WITH_NAMESPACED, account.user.roles);
       const dymamicRouter = store.getters[CONSTANT_STORE.APP.NAVBAR_DYNAMIC.GET_WITH_NAMESPACED];
       // add router
       dymamicRouter.forEach((route: RouteRecordRaw) => {

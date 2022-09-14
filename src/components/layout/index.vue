@@ -11,9 +11,7 @@
         <el-container>
           <el-main style="background: lightgray">
             <section class="app-main">
-              <transition name="fade-transform" mode="out-in">
-                <router-view />
-              </transition>
+              <router-view />
             </section>
           </el-main>
           <el-footer style="background: lightgray; border-top: 1px solid black; text-align: center"
@@ -26,15 +24,21 @@
 </template>
 
 <script lang="ts">
-  import MenuLayout from './menu.vue';
+  import { defineComponent } from 'vue';
+  import MenuLayout from './components/menu/index.vue';
   import HeaderLayout from './header.vue';
 
-  export default {
+  export default defineComponent({
     components: {
       MenuLayout,
       HeaderLayout,
     },
-  };
+    computed: {
+      getPath (): string {
+        return this.$route.path;
+      },
+    },
+  });
 </script>
 
 <style lang="scss" scoped>
