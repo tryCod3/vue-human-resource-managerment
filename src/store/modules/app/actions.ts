@@ -1,4 +1,5 @@
 import privateRouters from '@/router/private';
+import publicRouters from '@/router/public';
 import CONSTANT_STORE from '@/constants/store';
 import { ACCOUNT_ROLE } from '@/constants/role';
 import { RouteRecordRaw } from 'vue-router';
@@ -22,10 +23,10 @@ const actions = {
     const { commit } = data;
     let routerForRoles = [];
 
-    if (roles.includes(ACCOUNT_ROLE.ADMIN)) routerForRoles = [...privateRouters];
+    if (roles.includes(ACCOUNT_ROLE.ADMIN)) routerForRoles = privateRouters;
     else routerForRoles = createRouterForRoles(privateRouters, roles);
 
-    commit(CONSTANT_STORE.APP.NAVBAR_DYNAMIC.SET, routerForRoles);
+    commit(CONSTANT_STORE.APP.NAVBAR_DYNAMIC.SET, publicRouters.concat(routerForRoles));
   },
   [CONSTANT_STORE.APP.RESET.SET] (data: any) {
     const { commit } = data;

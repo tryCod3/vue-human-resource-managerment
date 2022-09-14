@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import publicRouters from './public';
 
 const router = createRouter({
-  history: createWebHistory('/'),
+  history: createWebHistory(),
   routes: publicRouters,
 });
 

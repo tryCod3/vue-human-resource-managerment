@@ -1,21 +1,24 @@
 import { RouteRecordRaw } from 'vue-router';
 import { ACCOUNT_ROLE } from './../constants/role';
+import Layout from '@/components/layout/index.vue';
 
 const routers: RouteRecordRaw[] = [
   {
     path: '/company',
-    component: null,
+    component: Layout,
     redirect: '/company/list',
+    name: 'Company',
     meta: {
+      title: 'Company',
       roles: [ACCOUNT_ROLE.ADMIN],
     },
     children: [
       {
         path: 'create',
-        name: 'Company-Create',
-        component: null,
+        name: 'CreateCompany',
+        component: import('@/views/company/components/create/index.vue'),
         meta: {
-          title: 'create',
+          title: 'Create',
           icon: '',
           roles: [ACCOUNT_ROLE.ADMIN],
         },
@@ -23,17 +26,17 @@ const routers: RouteRecordRaw[] = [
       },
       {
         path: 'list',
-        name: 'Company-List',
-        component: null,
+        component: () => import('@/views/company/components/list/index.vue'),
+        name: 'ListCompany',
         meta: {
-          title: 'list',
+          title: 'List',
           icon: '',
           roles: [ACCOUNT_ROLE.ADMIN],
         },
         children: [
           {
             path: 'edit/:id',
-            name: 'Company-List-Edit',
+            name: 'Edit-List-Company',
             component: null,
             meta: {
               hidden: true,
@@ -57,18 +60,21 @@ const routers: RouteRecordRaw[] = [
   },
   {
     path: '/employee',
-    component: null,
+    component: Layout,
     redirect: '/employee/index',
+    name: 'Employee',
     meta: {
+      title: 'Employee',
       roles: [ACCOUNT_ROLE.ADMIN, ACCOUNT_ROLE.EMPLOYEE],
+      isRoot: true,
     },
     children: [
       {
         path: 'index',
-        name: 'Employee-MySeft',
-        component: null,
+        name: 'ProfileEmployee',
+        component: () => import('@/views/employee/components/profile/index.vue'),
         meta: {
-          title: 'employee',
+          title: 'Profile',
           icon: '',
           roles: [ACCOUNT_ROLE.ADMIN, ACCOUNT_ROLE.EMPLOYEE],
         },
@@ -76,10 +82,10 @@ const routers: RouteRecordRaw[] = [
       },
       {
         path: 'create',
-        name: 'Employee-Create',
-        component: null,
+        name: 'CreateEmployee',
+        component: () => import('@/views/employee/components/create/index.vue'),
         meta: {
-          title: 'create',
+          title: 'Create',
           icon: '',
           roles: [ACCOUNT_ROLE.ADMIN],
         },
@@ -87,17 +93,17 @@ const routers: RouteRecordRaw[] = [
       },
       {
         path: 'list',
-        name: 'Employee-List',
-        component: null,
+        name: 'ListEmployee',
+        component: () => import('@/views/employee/components/list/index.vue'),
         meta: {
-          title: 'list',
+          title: 'List',
           icon: '',
           roles: [ACCOUNT_ROLE.ADMIN],
         },
         children: [
           {
             path: 'edit/:id',
-            name: 'Employee-List-Edit',
+            name: 'Edit-List-Employee',
             component: null,
             meta: {
               hidden: true,
@@ -107,7 +113,7 @@ const routers: RouteRecordRaw[] = [
           },
           {
             path: 'profile/:id',
-            name: 'Employee-List-Profile',
+            name: 'Profile-List-Employee',
             component: null,
             meta: {
               hidden: true,
@@ -121,18 +127,20 @@ const routers: RouteRecordRaw[] = [
   },
   {
     path: '/department',
-    component: null,
+    component: Layout,
     redirect: '/department/list',
+    name: 'Department',
     meta: {
+      title: 'Department',
       roles: [ACCOUNT_ROLE.ADMIN],
     },
     children: [
       {
         path: 'create',
-        name: 'Department-Create',
-        component: null,
+        name: 'CreateDepartment',
+        component: () => import('@/views/department/components/create/index.vue'),
         meta: {
-          title: 'create',
+          title: 'Create',
           icon: '',
           roles: [ACCOUNT_ROLE.ADMIN],
         },
@@ -140,17 +148,17 @@ const routers: RouteRecordRaw[] = [
       },
       {
         path: 'list',
-        name: 'Department-List',
-        component: null,
+        name: 'ListDepartment',
+        component: () => import('@/views/department/components/list/index.vue'),
         meta: {
-          title: 'list',
+          title: 'List',
           icon: '',
           roles: [ACCOUNT_ROLE.ADMIN],
         },
         children: [
           {
             path: 'edit/:id',
-            name: 'Department-List-Edit',
+            name: 'Edit-List-Department',
             component: null,
             meta: {
               hidden: true,
@@ -160,7 +168,7 @@ const routers: RouteRecordRaw[] = [
           },
           {
             path: 'profile/:id',
-            name: 'Department-List-Profile',
+            name: 'Profile-List-Department',
             component: null,
             meta: {
               hidden: true,
@@ -174,18 +182,19 @@ const routers: RouteRecordRaw[] = [
   },
   {
     path: '/permission',
-    component: null,
+    component: Layout,
     redirect: '/permission/index',
+    name: 'Permission',
     meta: {
       roles: [ACCOUNT_ROLE.ADMIN],
     },
     children: [
       {
         path: 'index',
-        name: 'Permission',
-        component: null,
+        name: 'PermissionIndex',
+        component: () => import('@/views/permission/index.vue'),
         meta: {
-          title: 'permission',
+          title: 'Permission',
           icon: '',
           roles: [ACCOUNT_ROLE.ADMIN],
         },
