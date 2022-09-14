@@ -38,7 +38,7 @@ const routers: RouteRecordRaw[] = [
       {
         path: 'dashboard',
         name: 'Dashboard',
-        component: import('@/views/dashboard/index.vue'),
+        component: () => import('@/views/dashboard/index.vue'),
         meta: {
           title: 'dashboard',
           icon: '',
