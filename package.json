@@ -14,6 +14,7 @@
   "dependencies": {
     "@yzfe/svgicon": "^1.1.0",
     "@yzfe/vue3-svgicon": "^1.0.1",
+    "axios": "^0.27.2",
     "vue": "^3.2.37",
     "vue-router": "4"
   },

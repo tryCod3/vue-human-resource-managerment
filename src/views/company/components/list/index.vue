@@ -6,14 +6,15 @@
     <el-table-column prop="type" label="Type" width="120" />
     <el-table-column prop="address" label="Address" width="600" />
     <el-table-column prop="tax_code" label="Tax code" width="150" />
-    <el-table-column align="right">
+
+    <el-table-column>
       <template #header>
         <el-input size="small" placeholder="Type to search" />
       </template>
-      <template #default>
+      <template #default="scope">
         <el-button size="small" type="primary">Detail</el-button>
         <el-button size="small" type="warning">Edit</el-button>
-        <el-button size="small" type="danger">Delete</el-button>
+        <el-button size="small" type="danger" @click="deleteCompany(scope)">Delete</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -23,15 +24,28 @@
   // eslint-disable-next-line
   import axios from 'axios';
   import { defineComponent } from 'vue';
+  import { ICompanyState } from './module';
+
   export default defineComponent({
     data () {
       return {
-        list: [],
+        list: [] as ICompanyState[],
       };
     },
     async mounted () {
-      const result = await axios.get('http://localhost:3000/company');
-      this.list = result.data;
+      this.getAPICompany();
+    },
+    methods: {
+      async getAPICompany () {
+        const result = await axios.get('http://localhost:3000/company');
+        this.list = result.data;
+      },
+      async deleteCompany (e: any) {
+        const i = e.row.id;
+        await axios.delete(`http://localhost:3000/company/${i}`);
+
+        this.getAPICompany();
+      },
     },
   });
 </script>
