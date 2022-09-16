@@ -1,13 +1,21 @@
 import axios from 'axios';
 
-// interface IUrl{
-//     url: string;
-//     data: any;
-// };
+export const getAPI = async (url: string) => {
+  let errored = false;
+  let loadding = true;
+  const data: [] = await axios
+    .get(url)
+    .then(res => {
+      return res.data;
+    })
+    .catch(error => {
+      errored = true;
+      throw error;
+    })
+    .finally(() => (loadding = false));
+  return { data, errored, loadding };
+};
 
-export const getAPI = async (url = '') => {
-  let newData = [];
-  const response = await axios.get(url);
-  newData = response.data;
-  return newData;
+export const deleteAPI = (url = '') => {
+  axios.delete(url);
 };
