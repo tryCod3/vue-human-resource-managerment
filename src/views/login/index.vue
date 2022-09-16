@@ -8,8 +8,8 @@
     data () {
       return {
         input: {
-          email: '',
-          password: '',
+          email: 'bbb@mail.com',
+          password: '12345678',
         },
       };
     },

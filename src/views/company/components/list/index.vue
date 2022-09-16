@@ -6,7 +6,8 @@
     <el-table-column prop="type" label="Type" width="120" />
     <el-table-column prop="address" label="Address" width="600" />
     <el-table-column prop="tax_code" label="Tax code" width="150" />
-    <el-table-column align="right">
+
+    <el-table-column>
       <template #header>
         <el-input size="small" placeholder="Type to search" />
       </template>
