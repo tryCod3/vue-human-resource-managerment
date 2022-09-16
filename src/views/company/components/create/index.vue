@@ -32,17 +32,23 @@
       <el-input v-model="form.type" />
     </el-form-item>
 
-    <el-form-item>
+    <el-form-item v-if="props.id === undefined">
       <el-button type="primary" @click="onSubmit">Create</el-button>
+    </el-form-item>
+    <el-form-item v-else>
+      <el-button type="primary" class="btn-update">Update</el-button>
     </el-form-item>
   </el-form>
 </template>
 
 <script lang="ts" setup>
-  import { reactive, ref } from 'vue';
+  import { reactive, ref, watchEffect } from 'vue';
   import type { FormRules } from 'element-plus';
+  import { ICompanyState } from '../../module';
 
-  const form = ref({
+  const props = defineProps(['id']);
+
+  const form = ref<ICompanyState>({
     user_msnv: '',
     department_name: '',
     company_name: '',
@@ -61,6 +67,33 @@
     phone_number: [{ required: true, message: 'Please input User MSNV', trigger: 'blur' }],
     tax_code: [{ required: true, message: 'Please input User MSNV', trigger: 'blur' }],
     type: [{ required: true, message: 'Please input User MSNV', trigger: 'blur' }],
+  });
+
+  const fetchData = async (url: string) => {
+    return fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(response => response.json())
+      .then(data => {
+        return data;
+      })
+      .catch(error => {
+        alert('Error: ' + error);
+        return false;
+      });
+  };
+
+  watchEffect(async () => {
+    if (props.id !== undefined) {
+      const url = `http://localhost:3000/company/${props.id}`;
+      const res = await fetchData(url);
+      if (res)
+        // console.log(res)
+        form.value = res;
+    }
   });
 
   const onSubmit = () => {
@@ -93,6 +126,14 @@
         alert('Error: ' + error);
       });
   };
+  // const onUpdate = () => {
+
+  // }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  .btn-update {
+    justify-content: end;
+    margin-top: 16px;
+  }
+</style>
