@@ -25,6 +25,7 @@
   import axios from 'axios';
   import { defineComponent } from 'vue';
   import { ICompanyState } from './module';
+  import { getAPI } from '../../../../custom/fetchApi/index';
 
   export default defineComponent({
     data () {
@@ -37,14 +38,23 @@
     },
     methods: {
       async getAPICompany () {
-        const result = await axios.get('http://localhost:3000/company');
-        this.list = result.data;
+        const url = 'http://localhost:3000/company';
+        // this.list = getAPI(url);
+        getAPI(url)
+          .then(data => {
+            this.list = data;
+          })
+          .catch(e => {
+            alert('Erorr: ' + e);
+          });
+
+        // const result = await axios.get('http://localhost:3000/company');
+        // this.list = result.data;
       },
       async deleteCompany (e: any) {
         const i = e.row.id;
         await axios.delete(`http://localhost:3000/company/${i}`);
-
-        this.getAPICompany();
+        this.list = this.list.filter(item => item.id !== i);
       },
     },
   });
