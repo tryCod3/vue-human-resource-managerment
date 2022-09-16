@@ -43,8 +43,7 @@
       async deleteCompany (e: any) {
         const i = e.row.id;
         await axios.delete(`http://localhost:3000/company/${i}`);
-
-        this.getAPICompany();
+        this.list = this.list.filter(item => item.id !== i);
       },
     },
   });
