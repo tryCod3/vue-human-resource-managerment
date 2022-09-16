@@ -3,13 +3,13 @@
 </script>
 
 <template>
-  <el-form :model="form" label-width="150px" label-position="left" :rules="rules">
+  <el-form :model="form" label-width="200px" label-position="left" :rules="rules">
     <el-form-item label="User MSNV" prop="user_msnv">
       <el-input v-model="form.user_msnv" />
     </el-form-item>
 
-    <el-form-item label="Department ID" prop="department_id">
-      <el-input v-model="form.department_id" />
+    <el-form-item label="Department Name" prop="department_name">
+      <el-input v-model="form.department_name" />
     </el-form-item>
 
     <el-form-item label="Company Name" prop="company_name">
@@ -44,7 +44,7 @@
 
   const form = ref({
     user_msnv: '',
-    department_id: 0,
+    department_name: '',
     company_name: '',
     address: '',
     phone_number: '',
@@ -55,7 +55,7 @@
 
   const rules = reactive<FormRules>({
     user_msnv: [{ required: true, message: 'Please input User MSNV', trigger: 'blur' }],
-    department_id: [{ required: true, message: 'Please input User MSNV', trigger: 'blur' }],
+    department_name: [{ required: true, message: 'Please input User MSNV', trigger: 'blur' }],
     company_name: [{ required: true, message: 'Please input User MSNV', trigger: 'blur' }],
     address: [{ required: true, message: 'Please input User MSNV', trigger: 'blur' }],
     phone_number: [{ required: true, message: 'Please input User MSNV', trigger: 'blur' }],
@@ -80,7 +80,7 @@
       .then(data => {
         form.value = {
           user_msnv: '',
-          department_id: 0,
+          department_name: '',
           company_name: '',
           address: '',
           phone_number: '',
