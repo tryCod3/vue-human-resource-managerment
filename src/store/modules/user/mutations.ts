@@ -9,9 +9,12 @@ const mutations = {
   [CONSTANT_STORE.USER.LOGOUT.SET] (state: IUserState) {
     state.isLogin = false;
     state.profile = {
-      name: '',
-      token: '',
-      roles: [],
+      accessToken: '',
+      user: {
+        email: '',
+        roles: [],
+        id: -1,
+      },
     };
     localStorage.removeItem('author');
     store.dispatch(CONSTANT_STORE.APP.RESET.SET_WITH_NAMESPACED);
