@@ -21,10 +21,9 @@
 </template>
 
 <script lang="ts">
-  // eslint-disable-next-line
-  import axios from 'axios';
   import { defineComponent } from 'vue';
   import { ICompanyState } from './module';
+  import { getAPI, deleteAPI } from '@/custom/fetchApi/index';
 
   export default defineComponent({
     data () {
@@ -36,13 +35,14 @@
       this.getAPICompany();
     },
     methods: {
-      async getAPICompany () {
-        const result = await axios.get('http://localhost:3000/company');
-        this.list = result.data;
+      getAPICompany () {
+        const url = 'http://localhost:3000/company';
+        getAPI(url).then(res => (this.list = res.data));
       },
-      async deleteCompany (e: any) {
+      deleteCompany (e: any) {
         const i = e.row.id;
-        await axios.delete(`http://localhost:3000/company/${i}`);
+        const url = `http://localhost:3000/company/${i}`;
+        deleteAPI(url);
         this.list = this.list.filter(item => item.id !== i);
       },
     },
