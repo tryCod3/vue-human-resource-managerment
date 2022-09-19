@@ -1,13 +1,13 @@
 <template>
-  <FetchApi :fetch-info="fetchInfo">
+  <FetchApi :fetch-info="fetchInfo" :reset-field="resetField">
     <template #header> List Company </template>
 
-    <template #default="scope">
+    <template #default="_scope">
       <el-dialog v-model="dialogVisible" title="Tips" width="30%" draggable>
-        <CompanyCreate :id="idHandel" />
+        <CompanyCreate :id="idHandel" @handleUpdate="_scope.update" />
       </el-dialog>
 
-      <el-table :data="scope.datas" style="width: 100%">
+      <el-table :data="_scope.datas" style="width: 100%">
         <el-table-column prop="user_msnv" label="User msnv" width="110" />
         <el-table-column prop="company_name" label="Company name" width="200" />
         <el-table-column prop="phone_number" label="Phone number" width="150" />
@@ -21,7 +21,7 @@
           <template #default="scope">
             <el-button size="small" type="primary">Detail</el-button>
             <el-button size="small" type="warning" @click="handleEditCompany(scope.$index, scope.row)">Edit</el-button>
-            <el-button size="small" type="danger" @click="deleteCompany(scope)">Delete</el-button>
+            <el-button size="small" type="danger" @click="_scope.delete(scope.row.id)">Delete</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -32,7 +32,6 @@
 </template>
 
 <script lang="ts">
-  import axios from 'axios';
   import FetchApi from '@/slots/fetch/index.vue';
   import CompanyCreate from '../create/index.vue';
   import { ICompanyState } from '../../module';
@@ -56,15 +55,15 @@
     },
 
     methods: {
-      async deleteCompany (e: any) {
-        const i = e.row.id;
-        await axios.delete(`http://localhost:3000/company/${i}`);
-        this.list = this.list.filter(company => company.id !== i);
-      },
       handleEditCompany (index: number, model: ICompanyState) {
         this.dialogVisible = true;
         this.$router.replace(`/company/list/edit/${model.id}`);
         this.idHandel = model?.id ?? -1;
+      },
+      resetField () {
+        this.dialogVisible = false;
+        this.$router.replace(`/company/list/`);
+        this.idHandel = -1;
       },
     },
   });

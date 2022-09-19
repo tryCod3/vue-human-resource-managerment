@@ -1,16 +1,11 @@
 import { ICompanyState } from '@/views/company/module';
+import { IFecthState } from '@/store/modules/api';
 
 export type typeModule = ICompanyState;
 
 export interface IFecthPropsState {
   url: string;
   dataInPage?: number;
-}
-
-export interface IFecthState {
-  hasFetch: boolean;
-  success: boolean;
-  messageError?: string;
 }
 
 export interface IFetchResponseState<Type> {

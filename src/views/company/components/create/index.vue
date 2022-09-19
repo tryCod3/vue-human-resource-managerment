@@ -32,7 +32,7 @@
       <el-button type="primary" @click="onSubmit">Create</el-button>
     </el-form-item>
     <el-form-item v-else>
-      <el-button type="primary" class="btn-update">Update</el-button>
+      <el-button type="primary" class="btn-update" @click="onUpdate">Update</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -41,8 +41,10 @@
   import { reactive, ref, watchEffect } from 'vue';
   import type { FormRules } from 'element-plus';
   import { ICompanyState } from '../../module';
+  import axios from 'axios';
 
   const props = defineProps(['id']);
+  const emit = defineEmits(['handleUpdate']);
 
   const form = ref<ICompanyState>({
     user_msnv: '',
@@ -83,27 +85,24 @@
   };
 
   watchEffect(async () => {
-    if (props.id !== undefined) {
+    if (props.id && props.id > 0) {
       const url = `http://localhost:3000/company/${props.id}`;
       const res = await fetchData(url);
       if (res) form.value = res;
     }
   });
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const data = {
       ...form.value,
       active: true,
     };
 
-    fetch('http://localhost:3000/company', {
+    await axios('http://localhost:3000/company', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
+      data,
     })
-      .then(response => response.json())
+      .then(response => response)
       .then(() => {
         form.value = {
           user_msnv: '',
@@ -120,9 +119,10 @@
         alert('Error: ' + error);
       });
   };
-  // const onUpdate = () => {
 
-  // }
+  const onUpdate = () => {
+    emit('handleUpdate', form.value);
+  };
 </script>
 
 <style lang="scss" scoped>
