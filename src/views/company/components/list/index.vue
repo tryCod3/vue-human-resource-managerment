@@ -3,7 +3,7 @@
     <template #header> List Company </template>
 
     <template #default="_scope">
-      <el-dialog v-model="dialogVisible" title="Tips" width="30%" draggable>
+      <el-dialog v-model="dialogVisible" title="Tips" width="30%" draggable @close="resetField">
         <CompanyCreate :id="idHandel" @handleUpdate="_scope.update" />
       </el-dialog>
 

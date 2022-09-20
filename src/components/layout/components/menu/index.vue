@@ -24,4 +24,12 @@
   };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  .tac {
+    .el-col {
+      .el-menu {
+        height: 100vh;
+      }
+    }
+  }
+</style>
