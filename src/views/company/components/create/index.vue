@@ -1,7 +1,3 @@
-<script lang="ts">
-  export default {};
-</script>
-
 <template>
   <el-form :model="form" label-width="200px" label-position="left" :rules="rules">
     <el-form-item label="User MSNV" prop="user_msnv">
@@ -32,17 +28,25 @@
       <el-input v-model="form.type" />
     </el-form-item>
 
-    <el-form-item>
+    <el-form-item v-if="props.id === undefined">
       <el-button type="primary" @click="onSubmit">Create</el-button>
+    </el-form-item>
+    <el-form-item v-else>
+      <el-button type="primary" class="btn-update" @click="onUpdate">Update</el-button>
     </el-form-item>
   </el-form>
 </template>
 
 <script lang="ts" setup>
-  import { reactive, ref } from 'vue';
+  import { reactive, ref, watchEffect } from 'vue';
   import type { FormRules } from 'element-plus';
+  import { ICompanyState } from '../../module';
+  import axios from 'axios';
 
-  const form = ref({
+  const props = defineProps(['id']);
+  const emit = defineEmits(['handleUpdate']);
+
+  const form = ref<ICompanyState>({
     user_msnv: '',
     department_name: '',
     company_name: '',
@@ -63,21 +67,43 @@
     type: [{ required: true, message: 'Please input User MSNV', trigger: 'blur' }],
   });
 
-  const onSubmit = () => {
+  const fetchData = async (url: string) => {
+    return fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(response => response.json())
+      .then(data => {
+        return data;
+      })
+      .catch(error => {
+        alert('Error: ' + error);
+        return false;
+      });
+  };
+
+  watchEffect(async () => {
+    if (props.id && props.id > 0) {
+      const url = `http://localhost:3000/company/${props.id}`;
+      const res = await fetchData(url);
+      if (res) form.value = res;
+    }
+  });
+
+  const onSubmit = async () => {
     const data = {
       ...form.value,
       active: true,
     };
 
-    fetch('http://localhost:3000/company', {
+    await axios('http://localhost:3000/company', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
+      data,
     })
-      .then(response => response.json())
-      .then(data => {
+      .then(response => response)
+      .then(() => {
         form.value = {
           user_msnv: '',
           department_name: '',
@@ -93,6 +119,15 @@
         alert('Error: ' + error);
       });
   };
+
+  const onUpdate = () => {
+    emit('handleUpdate', form.value);
+  };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  .btn-update {
+    justify-content: end;
+    margin-top: 16px;
+  }
+</style>
