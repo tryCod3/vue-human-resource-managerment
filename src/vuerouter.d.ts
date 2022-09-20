@@ -15,5 +15,6 @@ declare module 'vue-router' {
     hidden?: boolean;
     icon?: string;
     isRoot?: boolean;
+    fullPath?: string;
   }
 }
