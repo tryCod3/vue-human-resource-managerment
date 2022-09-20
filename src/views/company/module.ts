@@ -1,7 +1,7 @@
 export interface ICompanyState {
-  id: number;
+  id?: number;
   user_msnv: string;
-  departmentName: string;
+  department_name: string;
   company_name: string;
   address: string;
   phone_number: string;

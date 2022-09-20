@@ -39,6 +39,31 @@ const STORE = {
       SET_WITH_NAMESPACED: 'user/SET_PROPFILE',
     },
   },
+  API: {
+    CONFIG: {
+      MODULE: 'api',
+    },
+    FECTH: {
+      STATE: {
+        GET: 'GET_STATE',
+        SET: 'SET_STATE',
+        GET_WITH_NAMESPACED: 'api/GET_STATE',
+        SET_WITH_NAMESPACED: 'api/SET_STATE',
+      },
+      START: {
+        GET: 'GET_START',
+        SET: 'SET_START',
+        GET_WITH_NAMESPACED: 'api/GET_START',
+        SET_WITH_NAMESPACED: 'api/SET_START',
+      },
+      DONE: {
+        GET: 'GET_DONE',
+        SET: 'SET_DONE',
+        GET_WITH_NAMESPACED: 'api/GET_DONE',
+        SET_WITH_NAMESPACED: 'api/SET_DONE',
+      },
+    },
+  },
 };
 
 export default STORE;
