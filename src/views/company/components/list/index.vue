@@ -7,6 +7,10 @@
         <CompanyCreate :id="idHandel" @handleUpdate="_scope.update" />
       </el-dialog>
 
+      <el-dialog v-model="dialogDetailCompany" title="Profile Company" width="30%" draggable>
+        <CompanyProfile :id="idHandel" />
+      </el-dialog>
+
       <el-table :data="_scope.datas" style="width: 100%">
         <el-table-column prop="user_msnv" label="User msnv" width="110" />
         <el-table-column prop="company_name" label="Company name" width="200" />
@@ -19,7 +23,9 @@
             <el-input size="small" placeholder="Type to search" />
           </template>
           <template #default="scope">
-            <el-button size="small" type="primary">Detail</el-button>
+            <el-button size="small" type="primary" @click="handleDetailCompany(scope.$index, scope.row)"
+              >Detail</el-button
+            >
             <el-button size="small" type="warning" @click="handleEditCompany(scope.$index, scope.row)">Edit</el-button>
             <el-button size="small" type="danger" @click="_scope.delete(scope.row.id)">Delete</el-button>
           </template>
@@ -35,11 +41,13 @@
   import { defineComponent } from 'vue';
   import FetchApi from '@/slots/fetch/index.vue';
   import CompanyCreate from '../create/index.vue';
+  import CompanyProfile from '../Detail/index.vue';
   import { ICompanyState } from '../../module';
 
   export default defineComponent({
     components: {
       CompanyCreate,
+      CompanyProfile,
       FetchApi,
     },
     data () {
@@ -49,11 +57,17 @@
           url: 'http://localhost:3000/company',
         },
         dialogVisible: false,
+        dialogDetailCompany: false,
         idHandel: -1,
       };
     },
 
     methods: {
+      handleDetailCompany (index: number, model: ICompanyState) {
+        this.dialogDetailCompany = true;
+        this.$router.replace(`/company/list/profile/${model.id}`);
+        this.idHandel = model?.id ?? -1;
+      },
       handleEditCompany (index: number, model: ICompanyState) {
         this.dialogVisible = true;
         this.$router.replace(`/company/list/edit/${model.id}`);
