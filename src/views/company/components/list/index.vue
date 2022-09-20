@@ -33,7 +33,6 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { getAPI, deleteAPI } from '@/custom/fetchApi/index';
   import FetchApi from '@/slots/fetch/index.vue';
   import CompanyCreate from '../create/index.vue';
   import { ICompanyState } from '../../module';
@@ -55,16 +54,6 @@
     },
 
     methods: {
-      getAPICompany () {
-        const url = 'http://localhost:3000/company';
-        getAPI(url).then(res => (this.list = res.data));
-      },
-      deleteCompany (e: any) {
-        const i = e.row.id;
-        const url = `http://localhost:3000/company/${i}`;
-        deleteAPI(url);
-        this.list = this.list.filter(item => item.id !== i);
-      },
       handleEditCompany (index: number, model: ICompanyState) {
         this.dialogVisible = true;
         this.$router.replace(`/company/list/edit/${model.id}`);
