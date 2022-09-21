@@ -7,13 +7,14 @@
         <CompanyCreate :id="idHandel" @handleUpdate="_scope.update" />
       </el-dialog>
 
-      <el-table :data="_scope.datas" style="width: 100%">
-        <el-table-column prop="user_msnv" label="User msnv" width="110" />
-        <el-table-column prop="company_name" label="Company name" width="200" />
-        <el-table-column prop="phone_number" label="Phone number" width="150" />
-        <el-table-column prop="type" label="Type" width="120" />
-        <el-table-column prop="address" label="Address" width="600" />
-        <el-table-column prop="tax_code" label="Tax code" width="150" />
+      <el-table :data="listDatas(_scope.datas)" style="width: 100%">
+        <el-table-column prop="company_name" label="Company Name" width="200" />
+        <el-table-column prop="address" label="Address" width="500" />
+        <el-table-column prop="phone_number" label="Phone Number" width="150" />
+        <el-table-column prop="tax_code" label="Tax Code" width="150" />
+        <el-table-column prop="type_company" label="Type Company" width="120" />
+        <el-table-column prop="activeD" label="Active" width="120" />
+
         <el-table-column>
           <template #header>
             <el-input size="small" placeholder="Type to search" />
@@ -44,7 +45,6 @@
     },
     data () {
       return {
-        list: [] as ICompanyState[],
         fetchInfo: {
           url: 'http://localhost:3000/company',
         },
@@ -63,6 +63,16 @@
         this.dialogVisible = false;
         this.$router.replace(`/company/list/`);
         this.idHandel = -1;
+      },
+      listDatas (datas: ICompanyState[]) {
+        return datas.reduce((arr: ICompanyState[], model: ICompanyState) => {
+          const modelChange = {
+            ...model,
+            activeD: model.active ? 'Active' : 'Inactive',
+          };
+          arr.push(modelChange);
+          return arr;
+        }, []);
       },
     },
   });
