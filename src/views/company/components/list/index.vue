@@ -3,21 +3,22 @@
     <template #header> List Company </template>
 
     <template #default="_scope">
-      <el-dialog v-model="dialogVisible" title="Tips" width="30%" draggable>
+      <el-dialog v-model="dialogVisibleCreate" title="Update Company" width="30%" draggable @close="resetField">
         <CompanyCreate :id="idHandel" @handleUpdate="_scope.update" />
       </el-dialog>
 
-      <el-dialog v-model="dialogDetailCompany" title="Profile Company" width="30%" draggable>
-        <CompanyProfile :id="idHandel" />
+      <el-dialog v-model="dialogVisibleDetail" title="Profile Company" width="30%" draggable @close="resetField">
+        <CompanyDetail :id="idHandel" @handleUpdate="_scope.update" />
       </el-dialog>
 
-      <el-table :data="_scope.datas" style="width: 100%">
-        <el-table-column prop="user_msnv" label="User msnv" width="110" />
-        <el-table-column prop="company_name" label="Company name" width="200" />
-        <el-table-column prop="phone_number" label="Phone number" width="150" />
-        <el-table-column prop="type" label="Type" width="120" />
-        <el-table-column prop="address" label="Address" width="600" />
-        <el-table-column prop="tax_code" label="Tax code" width="150" />
+      <el-table :data="listDatas(_scope.datas)" style="width: 100%">
+        <el-table-column prop="company_name" label="Company Name" width="200" />
+        <el-table-column prop="address" label="Address" width="500" />
+        <el-table-column prop="phone_number" label="Phone Number" width="150" />
+        <el-table-column prop="tax_code" label="Tax Code" width="150" />
+        <el-table-column prop="type_company" label="Type Company" width="120" />
+        <el-table-column prop="activeD" label="Active" width="120" />
+
         <el-table-column>
           <template #header>
             <el-input size="small" placeholder="Type to search" />
@@ -41,42 +42,56 @@
   import { defineComponent } from 'vue';
   import FetchApi from '@/slots/fetch/index.vue';
   import CompanyCreate from '../create/index.vue';
-  import CompanyProfile from '../Detail/index.vue';
+  import CompanyDetail from '../detail/index.vue';
   import { ICompanyState } from '../../module';
 
   export default defineComponent({
     components: {
       CompanyCreate,
-      CompanyProfile,
+      CompanyDetail,
       FetchApi,
     },
     data () {
       return {
-        list: [] as ICompanyState[],
         fetchInfo: {
           url: 'http://localhost:3000/company',
         },
-        dialogVisible: false,
-        dialogDetailCompany: false,
+        dialogVisibleCreate: false,
+        dialogVisibleDetail: false,
         idHandel: -1,
       };
     },
 
     methods: {
       handleDetailCompany (index: number, model: ICompanyState) {
-        this.dialogDetailCompany = true;
+        this.dialogVisibleDetail = true;
         this.$router.replace(`/company/list/profile/${model.id}`);
         this.idHandel = model?.id ?? -1;
       },
       handleEditCompany (index: number, model: ICompanyState) {
-        this.dialogVisible = true;
+        this.dialogVisibleCreate = true;
         this.$router.replace(`/company/list/edit/${model.id}`);
         this.idHandel = model?.id ?? -1;
       },
+      handleProfileCompany (index: number, model: ICompanyState) {
+        this.dialogVisibleDetail = true;
+        this.$router.replace(`/company/list/profile/${model.id}`);
+        this.idHandel = model?.id ?? -1;
+      },
       resetField () {
-        this.dialogVisible = false;
+        this.dialogVisibleCreate = false;
         this.$router.replace(`/company/list/`);
         this.idHandel = -1;
+      },
+      listDatas (datas: ICompanyState[]) {
+        return datas.reduce((arr: ICompanyState[], model: ICompanyState) => {
+          const modelChange = {
+            ...model,
+            activeD: model.active ? 'Active' : 'Inactive',
+          };
+          arr.push(modelChange);
+          return arr;
+        }, []);
       },
     },
   });

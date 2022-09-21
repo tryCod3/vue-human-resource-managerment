@@ -15,13 +15,13 @@
 <script lang="ts" setup>
   import { ref, watchEffect } from 'vue';
   import { useRoute } from 'vue-router';
-  import { IDepartmentState, ICompanyState } from '../list/module';
+  import { IDepartmentState } from '../../module';
   const route = useRoute();
 
   const form = ref<IDepartmentState>({
     name: '',
     active: false,
-    company_infos: [] as ICompanyState[],
+    company_infos: [],
   });
   const fetchData = async (url: string) => {
     return fetch(url, {

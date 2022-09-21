@@ -1,13 +1,5 @@
 <template>
   <el-form :model="form" label-width="200px" label-position="left" :rules="rules">
-    <el-form-item label="User MSNV" prop="user_msnv">
-      <el-input v-model="form.user_msnv" />
-    </el-form-item>
-
-    <el-form-item label="Department Name" prop="department_name">
-      <el-input v-model="form.department_name" />
-    </el-form-item>
-
     <el-form-item label="Company Name" prop="company_name">
       <el-input v-model="form.company_name" />
     </el-form-item>
@@ -24,8 +16,8 @@
       <el-input v-model="form.tax_code" />
     </el-form-item>
 
-    <el-form-item label="Type" prop="type">
-      <el-input v-model="form.type" />
+    <el-form-item label="Type" prop="type_company">
+      <el-input v-model="form.type_company" />
     </el-form-item>
 
     <el-form-item v-if="props.id === undefined">
@@ -47,24 +39,27 @@
   const emit = defineEmits(['handleUpdate']);
 
   const form = ref<ICompanyState>({
-    user_msnv: '',
-    department_name: '',
     company_name: '',
     address: '',
     phone_number: '',
     tax_code: '',
-    type: '',
+    type_company: '',
     active: false,
+    // id?: number;
+    // company_name: string;
+    // address: string;
+    // phone_number: string;
+    // tax_code: string;
+    // type_company: string;
+    // active: boolean;
   });
 
   const rules = reactive<FormRules>({
-    user_msnv: [{ required: true, message: 'Please input User MSNV', trigger: 'blur' }],
-    department_name: [{ required: true, message: 'Please input User MSNV', trigger: 'blur' }],
     company_name: [{ required: true, message: 'Please input User MSNV', trigger: 'blur' }],
     address: [{ required: true, message: 'Please input User MSNV', trigger: 'blur' }],
     phone_number: [{ required: true, message: 'Please input User MSNV', trigger: 'blur' }],
     tax_code: [{ required: true, message: 'Please input User MSNV', trigger: 'blur' }],
-    type: [{ required: true, message: 'Please input User MSNV', trigger: 'blur' }],
+    type_company: [{ required: true, message: 'Please input User MSNV', trigger: 'blur' }],
   });
 
   const fetchData = async (url: string) => {
@@ -105,13 +100,11 @@
       .then(response => response)
       .then(() => {
         form.value = {
-          user_msnv: '',
-          department_name: '',
           company_name: '',
           address: '',
           phone_number: '',
           tax_code: '',
-          type: '',
+          type_company: '',
           active: false,
         };
       })

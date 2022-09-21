@@ -28,7 +28,7 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { IDepartmentState } from './module';
+  import { IDepartmentState } from '../../module';
   import { getAPI, deleteAPI } from '@/custom/fetchApi/index';
   import DepartmentProfile from '../detail/index.vue';
 

@@ -1,8 +1,8 @@
-export interface ICompanyState {
-  id?: number;
+import { ICompanyState } from '@/views/company/module';
+
+export interface ICompanyLabelState {
+  company_id: string;
   company_name: string;
-  phone_number: string;
-  address: string;
 }
 export interface IDepartmentState {
   id?: number;
