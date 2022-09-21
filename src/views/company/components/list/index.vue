@@ -24,7 +24,7 @@
             <el-input size="small" placeholder="Type to search" />
           </template>
           <template #default="scope">
-            <el-button size="small" type="primary" @click="handleProfileCompany(scope.$index, scope.row)"
+            <el-button size="small" type="primary" @click="handleDetailCompany(scope.$index, scope.row)"
               >Detail</el-button
             >
             <el-button size="small" type="warning" @click="handleEditCompany(scope.$index, scope.row)">Edit</el-button>
@@ -48,8 +48,8 @@
   export default defineComponent({
     components: {
       CompanyCreate,
-      FetchApi,
       CompanyDetail,
+      FetchApi,
     },
     data () {
       return {
@@ -63,6 +63,11 @@
     },
 
     methods: {
+      handleDetailCompany (index: number, model: ICompanyState) {
+        this.dialogVisibleDetail = true;
+        this.$router.replace(`/company/list/profile/${model.id}`);
+        this.idHandel = model?.id ?? -1;
+      },
       handleEditCompany (index: number, model: ICompanyState) {
         this.dialogVisibleCreate = true;
         this.$router.replace(`/company/list/edit/${model.id}`);
