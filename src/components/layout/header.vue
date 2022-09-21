@@ -49,6 +49,7 @@
 
   .el-menu-demo {
     height: 60px;
+    padding: 0;
 
     .logo {
       height: 60px;

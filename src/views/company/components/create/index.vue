@@ -45,13 +45,6 @@
     tax_code: '',
     type_company: '',
     active: false,
-    // id?: number;
-    // company_name: string;
-    // address: string;
-    // phone_number: string;
-    // tax_code: string;
-    // type_company: string;
-    // active: boolean;
   });
 
   const rules = reactive<FormRules>({

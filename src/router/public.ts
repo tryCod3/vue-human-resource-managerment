@@ -40,7 +40,7 @@ const routers: RouteRecordRaw[] = [
         name: 'Dashboard',
         component: () => import('@/views/dashboard/index.vue'),
         meta: {
-          title: 'dashboard',
+          title: 'Dashboard',
           icon: '',
           roles: [ACCOUNT_ROLE.ADMIN, ACCOUNT_ROLE.EMPLOYEE],
         },
