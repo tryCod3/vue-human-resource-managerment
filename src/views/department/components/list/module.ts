@@ -1,6 +1,12 @@
-export interface IDepartmentState {
-  id: number;
+export interface ICompanyState {
+  id?: number;
   company_name: string;
-  department_name: string;
+  phone_number: string;
+  address: string;
+}
+export interface IDepartmentState {
+  id?: number;
+  name: string;
   active: boolean;
+  company_infos: ICompanyState[];
 }
