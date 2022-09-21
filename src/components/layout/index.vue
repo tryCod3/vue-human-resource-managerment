@@ -14,9 +14,7 @@
               <router-view />
             </section>
           </el-main>
-          <el-footer style="background: lightgray; border-top: 1px solid black; text-align: center"
-            >Create by team Rikai</el-footer
-          >
+          <el-footer style="border-top: 1px solid black; text-align: center">Create by team Rikai</el-footer>
         </el-container>
       </el-container>
     </el-container>
@@ -42,10 +40,14 @@
 </script>
 
 <style lang="scss" scoped>
-  .app-main {
-    min-height: 100vh;
-    width: 100%;
-    position: relative;
-    overflow: hidden;
+  .el-main {
+    background: white !important;
+
+    .app-main {
+      min-height: 100vh;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
   }
 </style>
