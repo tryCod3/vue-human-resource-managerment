@@ -1,22 +1,15 @@
 <template>
   <el-menu class="el-menu-demo" mode="horizontal" :ellipsis="false">
-    <el-menu-item index="0" class="logo">
-      <a href="/" class="logo-a"> HRM Project </a>
-    </el-menu-item>
-    <div class="flex-grow"></div>
-
-    <el-dropdown class="avatar" size="default">
-      <router-link to="/employee">
-        <el-icon><Message /></el-icon>
-        {{ user_name }}
-      </router-link>
-      <template #dropdown>
-        <el-dropdown-menu>
-          <el-dropdown-item>i18n</el-dropdown-item>
-          <el-dropdown-item @click="handleLogout">logout</el-dropdown-item>
-        </el-dropdown-menu>
-      </template>
-    </el-dropdown>
+    <div class="el-menu-demo__header">
+      <el-icon v-if="isOpenSidebar" color="blue" @click="handleToggle(false)"><Fold /></el-icon>
+      <el-icon v-else color="blue" @click="handleToggle(true)"><Expand /></el-icon>
+      <el-menu-item index="0" class="logo">
+        <a href="/" class="logo-a"> HRM Project </a>
+      </el-menu-item>
+    </div>
+    <template v-if="!isDeviceMobile">
+      <AccountDropdown />
+    </template>
   </el-menu>
 </template>
 
@@ -24,54 +17,63 @@
   import store from '@/store';
   import CONSTANT_STORE from '@/constants/store';
   import { defineComponent } from 'vue';
+  import AccountDropdown from './components/account/index.vue';
+  import { MOBILE } from '@/store/modules/app';
 
   export default defineComponent({
+    components: {
+      AccountDropdown,
+    },
     data () {
       return {
         user_name: store.getters[CONSTANT_STORE.USER.PROFILE.GET_WITH_NAMESPACED].user.email,
       };
+    },
+    computed: {
+      isOpenSidebar () {
+        return store.getters[CONSTANT_STORE.APP.TOGGLE_SIDEBAR.GET_WITH_NAMESPACED];
+      },
+      isDeviceMobile (): boolean {
+        return store.getters[CONSTANT_STORE.APP.DEVICE.GET_WITH_NAMESPACED] === MOBILE;
+      },
     },
     methods: {
       handleLogout () {
         store.dispatch(CONSTANT_STORE.USER.LOGOUT.SET_WITH_NAMESPACED);
         this.$router.replace({ path: '/login' });
       },
+      handleToggle (value: boolean) {
+        store.dispatch(CONSTANT_STORE.APP.TOGGLE_SIDEBAR.SET_WITH_NAMESPACED, value);
+      },
     },
   });
 </script>
 
 <style lang="scss" scoped>
-  .flex-grow {
-    flex-grow: 1;
-  }
-
   .el-menu-demo {
-    height: 60px;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    .el-menu-demo__header {
+      display: flex;
+      align-items: center;
 
-    .logo {
-      justify-content: flex-start;
-      color: blue;
-
-      margin-top: 2px;
-    }
-
-    .avatar {
-      margin-top: 20px;
-      &:hover > a {
-        cursor: pointer;
-        color: blue;
-      }
-      a {
-        display: flex;
-        i {
-          margin-right: 5px;
+      i {
+        font-size: 20px;
+        &:hover {
+          cursor: pointer;
+        }
+        svg {
+          font-size: 20px;
         }
       }
-      .avatar-img {
-        height: 51px;
-        width: 44px;
-        border-radius: 50%;
-        margin-right: 10px;
+      .logo {
+        justify-content: flex-start;
+        margin-top: 2px;
+        a {
+          color: blue;
+          font-size: 24px;
+        }
       }
     }
   }

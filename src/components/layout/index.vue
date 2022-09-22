@@ -5,11 +5,12 @@
         <HeaderLayout />
       </el-header>
       <el-container>
-        <el-aside width="200px">
+        <el-aside>
           <MenuLayout />
         </el-aside>
+
         <el-container>
-          <el-main style="background: lightgray">
+          <el-main>
             <section class="app-main">
               <router-view />
             </section>
@@ -25,21 +26,20 @@
   import { defineComponent } from 'vue';
   import MenuLayout from './components/menu/index.vue';
   import HeaderLayout from './header.vue';
+  import mixinResize from '@/mixins/resize';
 
   export default defineComponent({
     components: {
       MenuLayout,
       HeaderLayout,
     },
-    computed: {
-      getPath (): string {
-        return this.$route.path;
-      },
-    },
+    mixins: [mixinResize],
   });
 </script>
 
 <style lang="scss" scoped>
+  @use '@/styles/breakpoint' as *;
+
   .el-main {
     background: white !important;
 
@@ -48,6 +48,12 @@
       width: 100%;
       position: relative;
       overflow: hidden;
+    }
+  }
+  .el-container {
+    margin-top: 20px;
+    .el-aside {
+      width: auto;
     }
   }
 </style>

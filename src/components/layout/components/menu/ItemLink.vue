@@ -1,6 +1,6 @@
 <template>
   <router-link :to="path ?? '/404'">
-    {{ content }}
+    <slot />
   </router-link>
 </template>
 
@@ -9,10 +9,6 @@
   export default defineComponent({
     props: {
       path: {
-        type: String,
-        require: true,
-      },
-      content: {
         type: String,
         require: true,
       },
