@@ -3,6 +3,7 @@ import publicRouters from '@/router/public';
 import CONSTANT_STORE from '@/constants/store';
 import { ACCOUNT_ROLE } from '@/constants/role';
 import { RouteRecordRaw } from 'vue-router';
+import { typeDevice } from './index';
 
 const createRouterForRoles = (routers: RouteRecordRaw[], roles: string[]) => {
   const routersChildren = [];
@@ -31,6 +32,14 @@ const actions = {
   [CONSTANT_STORE.APP.RESET.SET] (data: any) {
     const { commit } = data;
     commit(CONSTANT_STORE.APP.RESET.SET);
+  },
+  [CONSTANT_STORE.APP.TOGGLE_SIDEBAR.SET] (data: any, toggleSidebar: boolean) {
+    const { commit } = data;
+    commit(CONSTANT_STORE.APP.TOGGLE_SIDEBAR.SET, toggleSidebar);
+  },
+  [CONSTANT_STORE.APP.DEVICE.SET] (data: any, device: typeDevice) {
+    const { commit } = data;
+    commit(CONSTANT_STORE.APP.DEVICE.SET, device);
   },
 };
 
