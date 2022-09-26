@@ -24,7 +24,13 @@
       <el-button type="primary" @click="onSubmit">Create</el-button>
     </el-form-item>
     <el-form-item v-else>
-      <el-button type="primary" class="btn-update" @click="onUpdate">Update</el-button>
+      <el-popconfirm title="Are you sure to update this?" @confirm="onUpdate" @cancel="cancelEvent">
+        <template #reference>
+          <el-button type="primary" class="btn-update">Update</el-button>
+        </template>
+      </el-popconfirm>
+
+      <!-- <el-button type="primary" class="btn-update" @click="onUpdate">Update</el-button> -->
     </el-form-item>
   </el-form>
 </template>
@@ -34,6 +40,7 @@
   import type { FormRules } from 'element-plus';
   import { ICompanyState } from '../../module';
   import axios from 'axios';
+  import { ElNotification, ElLoading } from 'element-plus';
 
   const props = defineProps(['id']);
   const emit = defineEmits(['handleUpdate']);
@@ -45,13 +52,6 @@
     tax_code: '',
     type_company: '',
     active: false,
-    // id?: number;
-    // company_name: string;
-    // address: string;
-    // phone_number: string;
-    // tax_code: string;
-    // type_company: string;
-    // active: boolean;
   });
 
   const rules = reactive<FormRules>({
@@ -111,10 +111,27 @@
       .catch(error => {
         alert('Error: ' + error);
       });
+    const loading = ElLoading.service({
+      lock: true,
+      text: 'Loading',
+      background: 'rgba(0, 0, 0, 0.7)',
+    });
+    setTimeout(() => {
+      loading.close();
+      ElNotification({
+        title: 'Success',
+        message: 'You created successfully',
+        type: 'success',
+      });
+    }, 2000);
   };
 
   const onUpdate = () => {
     emit('handleUpdate', form.value);
+  };
+
+  const cancelEvent = () => {
+    alert('You not update');
   };
 </script>
 

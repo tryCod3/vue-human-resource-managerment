@@ -19,7 +19,6 @@
   import { IFecthState } from '@/store/modules/api';
   import CONSTANT_STORE from '@/constants/store';
   import store from '@/store';
-  import { h } from 'vue';
   import { ElNotification, ElLoading } from 'element-plus';
 
   export default defineComponent({
@@ -106,10 +105,19 @@
             });
           else throw err;
         }
-        ElNotification({
-          title: 'Update',
-          message: h('i', { style: 'color: teal' }, 'Update Success!'),
+        const loading = ElLoading.service({
+          lock: true,
+          text: 'Loading',
+          background: 'rgba(0, 0, 0, 0.7)',
         });
+        setTimeout(() => {
+          loading.close();
+          ElNotification({
+            title: 'Success',
+            message: 'Update Success!',
+            type: 'success',
+          });
+        }, 1000);
       },
 
       async deleteData (id: number) {
