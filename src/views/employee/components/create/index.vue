@@ -153,6 +153,7 @@
   import { IProfileState } from '@/store/modules/user';
   import store from '@/store';
   import CONSTANT_STORE from '@/constants/store';
+  import { ElNotification, ElLoading } from 'element-plus';
 
   const ruleForm = {
     full_name: 'Full Name',
@@ -273,6 +274,19 @@
             (this.$refs.formInstace as FormInstance).resetFields();
           }
         });
+        const loading = ElLoading.service({
+          lock: true,
+          text: 'Loading',
+          background: 'rgba(0, 0, 0, 0.7)',
+        });
+        setTimeout(() => {
+          loading.close();
+          ElNotification({
+            title: 'Success',
+            message: 'You created successfully',
+            type: 'success',
+          });
+        }, 2000);
       },
       handleResetEmployee () {
         if (!this.$refs.formInstace) return;
