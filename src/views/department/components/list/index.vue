@@ -3,15 +3,6 @@
     <DepartmentProfile :id="idHandel" />
   </el-dialog>
   <el-table :data="listDepartment" style="width: 100%">
-    <!-- <el-table-column label="Company Name" width="350">
-      <template #default="scope">
-        <div style="display: flex; align-items: center">
-          <span v-for="company_info in scope.row.company_infos" :key="company_info.id" style="margin-left: 10px">{{
-            company_info.company_name
-          }}</span>
-        </div>
-      </template>
-    </el-table-column> -->
     <el-table-column prop="name" label="Department Name" width="350" />
     <el-table-column prop="activeD" label="Active" width="250" />
     <el-table-column label="Operations" width="">
