@@ -11,7 +11,11 @@
           >Detail</el-button
         >
         <el-button type="warning" size="small">Edit</el-button>
-        <el-button size="small" type="danger" @click="deleteDepartment(scope)">Delete</el-button>
+        <el-popconfirm title="Are you sure to delete this?" @confirm="deleteDepartment(scope)" @cancel="cancelEvent">
+          <template #reference>
+            <el-button size="small" type="danger">Delete</el-button>
+          </template>
+        </el-popconfirm>
       </template>
     </el-table-column>
   </el-table>
@@ -22,6 +26,7 @@
   import { IDepartmentState } from '../../module';
   import { getAPI, deleteAPI } from '@/custom/fetchApi/index';
   import DepartmentProfile from '../detail/index.vue';
+  import { ElNotification, ElLoading } from 'element-plus';
 
   export default defineComponent({
     components: {
@@ -69,6 +74,26 @@
         const url = `http://localhost:3000/departments/${id}`;
         deleteAPI(url);
         this.listDepartment = this.listDepartment.filter(item => item.id !== id);
+        const loading = ElLoading.service({
+          lock: true,
+          text: 'Loading',
+          background: 'rgba(0, 0, 0, 0.7)',
+        });
+        setTimeout(() => {
+          loading.close();
+          ElNotification({
+            title: 'Success',
+            message: 'You deleted successfully',
+            type: 'success',
+          });
+        }, 1000);
+      },
+      cancelEvent () {
+        ElNotification({
+          title: 'Success',
+          message: 'You refused to delete',
+          type: 'success',
+        });
       },
       resetField () {
         this.dialogDetailDepartment = false;

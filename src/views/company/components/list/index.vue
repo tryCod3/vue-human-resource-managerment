@@ -28,7 +28,15 @@
               >Detail</el-button
             >
             <el-button size="small" type="warning" @click="handleEditCompany(scope.$index, scope.row)">Edit</el-button>
-            <el-button size="small" type="danger" @click="_scope.delete(scope.row.id)">Delete</el-button>
+            <el-popconfirm
+              title="Are you sure to delete this?"
+              @confirm="_scope.delete(scope.row.id)"
+              @cancel="cancelEvent"
+            >
+              <template #reference>
+                <el-button size="small" type="danger">Delete</el-button>
+              </template>
+            </el-popconfirm>
           </template>
         </el-table-column>
       </el-table>
@@ -44,6 +52,7 @@
   import CompanyCreate from '../create/index.vue';
   import CompanyDetail from '../detail/index.vue';
   import { ICompanyState } from '../../module';
+  import { ElNotification } from 'element-plus';
 
   export default defineComponent({
     components: {
@@ -61,7 +70,6 @@
         idHandel: -1,
       };
     },
-
     methods: {
       handleDetailCompany (index: number, model: ICompanyState) {
         this.dialogVisibleDetail = true;
@@ -92,6 +100,13 @@
           arr.push(modelChange);
           return arr;
         }, []);
+      },
+      cancelEvent () {
+        ElNotification({
+          title: 'Success',
+          message: 'You refused to delete',
+          type: 'success',
+        });
       },
     },
   });

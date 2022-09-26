@@ -19,8 +19,8 @@
   import { IFecthState } from '@/store/modules/api';
   import CONSTANT_STORE from '@/constants/store';
   import store from '@/store';
-  import { ElNotification } from 'element-plus';
   import { h } from 'vue';
+  import { ElNotification, ElLoading } from 'element-plus';
 
   export default defineComponent({
     props: {
@@ -115,6 +115,19 @@
       async deleteData (id: number) {
         await axios.delete(`${this.fetchInfo?.url}/${id}`);
         this.fetch.datas = this.fetch.datas.filter(data => data.id !== id);
+        const loading = ElLoading.service({
+          lock: true,
+          text: 'Loading',
+          background: 'rgba(0, 0, 0, 0.7)',
+        });
+        setTimeout(() => {
+          loading.close();
+          ElNotification({
+            title: 'Success',
+            message: 'You deleted successfully',
+            type: 'success',
+          });
+        }, 1000);
       },
 
       fetchStart () {
