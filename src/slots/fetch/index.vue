@@ -19,6 +19,8 @@
   import { IFecthState } from '@/store/modules/api';
   import CONSTANT_STORE from '@/constants/store';
   import store from '@/store';
+  import { ElNotification } from 'element-plus';
+  import { h } from 'vue';
 
   export default defineComponent({
     props: {
@@ -104,6 +106,10 @@
             });
           else throw err;
         }
+        ElNotification({
+          title: 'Update',
+          message: h('i', { style: 'color: teal' }, 'Update Success!'),
+        });
       },
 
       async deleteData (id: number) {
