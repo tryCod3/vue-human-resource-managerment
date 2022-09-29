@@ -5,7 +5,7 @@
 
       <template #default="_scope">
         <el-dialog v-model="dialogVisibleUpdate" title="Update Employee" width="30%" draggable @close="resetField">
-          <employeeUpdate :id="idHandel" />
+          <employeeUpdate :id="idHandel" @update="_scope.update" />
         </el-dialog>
         <el-table :data="_scope.datas" border style="width: 100%">
           <el-table-column type="expand">
@@ -98,22 +98,23 @@
                         <li m="t-0 b-2">
                           <span>Position : </span>
                           <p>
-                            {{ props.row.position.name }}
+                            <Tags :tags="props.row.position.name" />
                           </p>
                         </li>
 
                         <li m="t-0 b-2">
                           <span>Level : </span>
-                          <p>
-                            {{ props.row.level.name }}
-                          </p>
+                          <Tags :tags="props.row.level.name" />
                         </li>
 
                         <li m="t-0 b-2">
                           <span>Role : </span>
-                          <p>
-                            {{ props.row.role.name }}
-                          </p>
+                          <Tags :tags="props.row.role.name" />
+                        </li>
+
+                        <li m="t-0 b-2">
+                          <span>Skill : </span>
+                          <Tags :tags="props.row.skill" />
                         </li>
                       </ul>
                     </div>
@@ -149,17 +150,19 @@
   import { defineComponent } from 'vue';
   import FetchApi from '@/slots/fetch/index.vue';
   import employeeUpdate from '../update/index.vue';
+  import Tags from '@/components/tag/index.vue';
 
   export default defineComponent({
     components: {
       employeeUpdate,
       FetchApi,
+      Tags,
     },
     data () {
       return {
         list_employee: [] as IEmployeeState[],
         fetchInfo: {
-          url: 'http://localhost:3000/employee',
+          url: 'http://localhost:3000/employee_querys',
         },
         dialogVisibleUpdate: false,
         idHandel: -1,
@@ -202,10 +205,13 @@
         li {
           padding: 5px;
           display: flex;
+          align-items: center;
           span {
             font-size: 18px;
             font-weight: 500 !important;
             margin-right: 5px;
+            min-width: 120px;
+            max-width: 120px;
           }
         }
       }

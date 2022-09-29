@@ -58,6 +58,8 @@
           const result = await axios({ method, url });
           this.fetch.datas = result.data;
 
+          // console.group("emp=", this.fetch.datas)
+
           this.fecthDone({
             hasFetch: false,
             success: true,
