@@ -62,6 +62,12 @@ const STORE = {
         GET_WITH_NAMESPACED: 'api/GET_STATE',
         SET_WITH_NAMESPACED: 'api/SET_STATE',
       },
+      HAS_FETCH: {
+        GET: 'GET_HAS_FETCH',
+        SET: 'SET_HAS_FETCH',
+        GET_WITH_NAMESPACED: 'api/GET_HAS_FETCH',
+        SET_WITH_NAMESPACED: 'api/SET_HAS_FETCH',
+      },
       START: {
         GET: 'GET_START',
         SET: 'SET_START',

@@ -2,13 +2,20 @@
   import { defineComponent } from 'vue';
   import store from '@/store';
   import CONSTANT_STORE from '@/constants/store';
+  import axios from 'axios';
+  import { IProfileState } from '@/store/modules/user';
+  import { ElNotification } from 'element-plus';
+  import LoadingSlot from '@/slots/loading/index.vue';
 
   export default defineComponent({
     name: 'Login',
+    components: {
+      LoadingSlot,
+    },
     data () {
       return {
         input: {
-          email: 'bbb@mail.com',
+          email: 'test@example.com',
           password: '12345678',
         },
       };
@@ -17,28 +24,54 @@
       login () {
         const data = this.input;
 
-        fetch('http://localhost:3000/login', {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
+        store.dispatch(CONSTANT_STORE.API.FECTH.START.SET_WITH_NAMESPACED, {
+          hasFetch: true,
+          success: false,
+          messageError: '',
+        });
+
+        axios({
+          method: 'post',
+          url: 'https://082b-203-205-53-11.ap.ngrok.io/users/sign_in',
+          data: { user: data },
         })
-          .then(data => {
-            return data.json();
+          .then(res => {
+            return res.data;
           })
           .then(data => {
-            if (data.user) {
-              store.dispatch(CONSTANT_STORE.USER.PROFILE.SET_WITH_NAMESPACED, data);
+            if (data.data.current_user) {
+              const convertData: IProfileState = {
+                accessToken: data.token,
+                user: {
+                  id: data.data.current_user.id,
+                  email: data.data.current_user.email,
+                  roles: ['employee'],
+                },
+              };
+              store.dispatch(CONSTANT_STORE.USER.PROFILE.SET_WITH_NAMESPACED, convertData);
               store.dispatch(CONSTANT_STORE.USER.LOGIN.SET_WITH_NAMESPACED, true);
+              ElNotification({
+                title: 'Success',
+                message: data.message,
+                type: 'success',
+              });
               this.$router.push('/');
             } else {
-              alert('Error:' + data);
+              alert(data.message);
             }
           })
           .catch(error => {
-            alert('Error:' + error);
+            alert('The server is currently not working, ' + error.message);
+          })
+          .finally(() => {
+            setTimeout(() => {
+              const fecthState = {
+                hasFetch: false,
+                success: true,
+                message: 'Fetch Data success!',
+              };
+              store.dispatch(CONSTANT_STORE.API.FECTH.DONE.SET_WITH_NAMESPACED, fecthState);
+            }, 2000);
           });
       },
     },
@@ -57,7 +90,10 @@
         <input v-model="input.password" type="password" required="true" />
         <label>Password</label>
       </div>
-      <button type="button" @click="login()">Login</button>
+      <div class="user-action">
+        <button type="button" @click="login()">Login</button>
+        <LoadingSlot />
+      </div>
     </form>
   </div>
 </template>
@@ -127,7 +163,6 @@
     text-transform: uppercase;
     overflow: hidden;
     transition: 0.5s;
-    margin-top: 40px;
     letter-spacing: 4px;
     outline: none;
     border: none;
@@ -137,7 +172,13 @@
   .login-box button:hover {
     background: #03e9f4;
     color: #fff;
+
     border-radius: 5px;
     box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4, 0 0 100px #03e9f4;
+  }
+
+  .login-box .user-action {
+    display: flex;
+    align-items: e;
   }
 </style>
