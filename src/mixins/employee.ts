@@ -66,6 +66,7 @@ const employeeMixins = () => {
         ListRole: [] as IModelIdAndName[],
         companySelected: '',
         tokens: '',
+        formReset: JSON.parse(JSON.stringify(formEmployeeDefault)),
         formState: {
           ...ruleForm,
         },
@@ -171,6 +172,8 @@ const employeeMixins = () => {
                 id: employee.companies[0].id,
                 name: employee.companies[0].company_name,
               });
+
+            this.formReset = JSON.parse(JSON.stringify(this.formState));
           } else {
             alert('ERROR call api name "employee_querys" not working, check it!');
           }

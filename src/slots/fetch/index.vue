@@ -4,7 +4,13 @@
       <slot name="header"></slot>
     </header>
     <main>
-      <slot :datas="fetch.datas" :state="fetch.state" :update="updateData" :delete="deleteData"></slot>
+      <slot
+        :datas="fetch.datas"
+        :state="fetch.state"
+        :update-api="updateDataApi"
+        :update-list="updateDataWithID"
+        :delete="deleteData"
+      ></slot>
     </main>
     <footer>
       <slot name="footer"></slot>
@@ -58,8 +64,6 @@
           const result = await axios({ method, url });
           this.fetch.datas = result.data;
 
-          // console.group("emp=", this.fetch.datas)
-
           this.fecthDone({
             hasFetch: false,
             success: true,
@@ -76,42 +80,56 @@
         }
       },
 
-      async updateData (target: typeModule) {
+      updateDataWithID (target: typeModule, idTarget?: number) {
+        const id = idTarget ?? target.id;
+
+        const modelUpdateInList = this.fetch.datas.findIndex(data => data.id === id);
+        if (modelUpdateInList >= 0) this.fetch.datas[modelUpdateInList] = target;
+        else
+          ElNotification({
+            title: 'updateDataWithID Employee',
+            message: h('i', { style: 'color: teal' }, 'Update List not working!'),
+          });
+      },
+
+      async updateDataApi (target: typeModule, url: string) {
         try {
           this.fetchStart();
+
           await axios({
             method: 'put',
-            url: `${this.fetchInfo?.url}/${target.id}`,
+            url,
             data: {
               ...target,
             },
           });
-          const modelUpdateInList = this.fetch.datas.findIndex(data => data.id === target.id);
 
-          if (modelUpdateInList >= 0) {
-            this.fetch.datas[modelUpdateInList] = target;
-            this.resetField();
-            this.fecthDone({
-              hasFetch: false,
-              success: true,
-              message: 'Update Data success!',
-            });
-          } else {
-            throw 'target not property id same in datas';
-          }
+          this.fecthDone({
+            hasFetch: false,
+            success: true,
+            message: 'Update Data success!',
+          });
+
+          ElNotification({
+            title: 'Update Employee',
+            message: h('i', { style: 'color: teal' }, 'Update Data Success!'),
+          });
         } catch (err: unknown) {
-          if (err instanceof Error)
+          if (err instanceof Error) {
             this.fecthDone({
               hasFetch: false,
               success: false,
               message: err.message,
             });
-          else throw err;
+
+            ElNotification({
+              title: 'Update Employee',
+              message: h('i', { style: 'color: teal' }, 'Update Data Api not working!' + err.message),
+            });
+          } else {
+            throw err;
+          }
         }
-        ElNotification({
-          title: 'Update',
-          message: h('i', { style: 'color: teal' }, 'Update Success!'),
-        });
       },
 
       async deleteData (id: number) {

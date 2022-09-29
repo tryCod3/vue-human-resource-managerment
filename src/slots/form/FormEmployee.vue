@@ -175,7 +175,14 @@
       <el-switch v-model="formState.active" />
     </el-form-item>
     <el-form-item>
-      <slot name="btn-action" :handle-create="createEmployee" :handle-update="updateEmployee"></slot>
+      <slot
+        name="btn-action"
+        :target="formState"
+        :target-api="getDataEmployee()"
+        :id-target="idUser"
+        :validate="validate"
+        :handle-create="createEmployee"
+      ></slot>
       <el-button @click="resetFormEmployee">Reset</el-button>
     </el-form-item>
   </el-form>
@@ -228,6 +235,11 @@
             // handle message error
           }
         });
+      },
+
+      async validate () {
+        if (!this.$refs.formInstace) return false;
+        return await (this.$refs.formInstace as FormInstance).validate(validate => validate);
       },
 
       resetFormEmployee () {

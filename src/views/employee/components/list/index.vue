@@ -5,7 +5,7 @@
 
       <template #default="_scope">
         <el-dialog v-model="dialogVisibleUpdate" title="Update Employee" width="30%" draggable @close="resetField">
-          <employeeUpdate :id="idHandel" @update="_scope.update" />
+          <employeeUpdate :id="idHandel" @updateApi="_scope.updateApi" @updateList="_scope.updateList" />
         </el-dialog>
         <el-table :data="_scope.datas" border style="width: 100%">
           <el-table-column type="expand">
