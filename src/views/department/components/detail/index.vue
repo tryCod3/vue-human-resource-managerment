@@ -4,10 +4,10 @@
       <p>{{ form.active ? 'Active' : 'Inactive' }}</p>
     </el-form-item>
 
-    <el-table :data="form.company_infos" stripe style="width: 100%">
+    <el-table :data="form.company" stripe style="width: 100%">
       <el-table-column label="Date Creare Department" prop="created_at" width="300" />
 
-      <el-table-column label="Company Name" prop="company_name" />
+      <el-table-column label="Company Name" prop="name" />
     </el-table>
   </el-form>
 </template>
@@ -21,7 +21,7 @@
   const form = ref<IDepartmentState>({
     name: '',
     active: false,
-    company_infos: [],
+    company: [],
   });
   const fetchData = async (url: string) => {
     return fetch(url, {
@@ -42,7 +42,7 @@
 
   watchEffect(async () => {
     if (route.params.id && +route.params.id > 0) {
-      const url = `http://localhost:3000/departments/${route.params.id}`;
+      const url = `http://localhost:3000/department_list/${route.params.id}`;
       const res = await fetchData(url);
       if (res) form.value = res;
     }
