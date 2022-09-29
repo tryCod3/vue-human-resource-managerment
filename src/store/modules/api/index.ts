@@ -18,6 +18,9 @@ const getters = {
   [CONSTANT_STORE.API.FECTH.STATE.GET] (state: IFecthState) {
     return state;
   },
+  [CONSTANT_STORE.API.FECTH.HAS_FETCH.GET] (state: IFecthState) {
+    return state.hasFetch;
+  },
 };
 
 const store = {
